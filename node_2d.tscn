@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://g2jsm4jea0u4"]
+
+[ext_resource type="Script" path="res://TsNes.cs" id="1_b7kfa"]
+[ext_resource type="Texture2D" uid="uid://ri0db41v77x2" path="res://icon.svg" id="2_1bh8a"]
+
+[sub_resource type="AudioStreamGenerator" id="AudioStreamGenerator_8smm0"]
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource("1_b7kfa")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(576, 400)
+scale = Vector2(3, 3)
+texture = ExtResource("2_1bh8a")
+
+[node name="Player" type="AudioStreamPlayer" parent="."]
+stream = SubResource("AudioStreamGenerator_8smm0")

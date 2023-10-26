@@ -1,0 +1,17 @@
+	FC 模拟器每秒输出60帧画面，画面的大小是256*240.
+
+	本项目中，显示画面的原理是，从模拟器代码接收List<int> 表示的图像数据（Screen类OnFrame方法），
+创建一个256 * 240大小的Image对象，用Image.SetPixel方法写入画面的每个像素，接着在TsNes类的
+_Process方法中，用上述Image对象创建ImageTexture对象，并用该对象设置Sprite2D节点的texture
+属性，实现在Godot中显示FC模拟器的画面。
+
+	音频输出，则是使用AudioStreamGenerator中的AudioStreamGeneratorPlayback属性来提交音频数据，
+并使用AudioStreamPlayer来播放。FC 中的音频数据，参看TsNes类的OnSample方法，该方法传递一个采样数据，
+我使用了一个Queue对象来保存所有的采样数据，并在_Process时，将采样数据提交到AudioStreamGenerator中。
+
+	值得指出的是：（1）画面的用SetPixel，并每次_Process的时候都创建一个ImageTexuture对象，显然
+效率不高，应该还有更高效的方法；（2）音频输出的效果还差，我尝试过用将FC模拟器传递出来的采样数据保存到
+wav文件中，然后使用播放器来播放，效果是非常好的，没有一点噪音；而且，Godot中的这种方法，失灵时不灵，
+有时能播放声音，还有又没有声音。
+
+	项目地址： https://github.com/GCCH2023/GodotTsNesEmulator/tree/main
